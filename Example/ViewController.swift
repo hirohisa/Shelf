@@ -1,0 +1,60 @@
+//
+//  ViewController.swift
+//  Example
+//
+//  Created by Hirohisa Kawasaki on 3/14/15.
+//  Copyright (c) 2015 Hirohisa Kawasaki. All rights reserved.
+//
+
+import UIKit
+import Shelf
+
+class ViewController: UIViewController {
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        let frame = view.bounds
+
+        let shelfView = Shelf.View(frame: frame)
+        println(shelfView)
+        shelfView.dataSource = self
+        shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        edgesForExtendedLayout = .None
+
+        view.addSubview(shelfView)
+    }
+
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+}
+
+extension ViewController: Shelf.ViewDataSource {
+
+    func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int {
+        return 2
+    }
+
+    func shelfView(shelfView: Shelf.View, heightForSection section: Int) -> CGFloat {
+        return CGFloat(120)
+    }
+
+    func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
+        return section + 1
+    }
+
+    func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
+        cell.backgroundColor = UIColor.blackColor()
+        println("1")
+
+        return cell
+    }
+
+    func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        return 100
+    }
+
+}
+
