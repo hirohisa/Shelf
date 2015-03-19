@@ -19,6 +19,7 @@ class ViewController: UIViewController {
         let shelfView = Shelf.View(frame: frame)
         println(shelfView)
         shelfView.dataSource = self
+        shelfView.delegate = self
         shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         edgesForExtendedLayout = .None
 
@@ -27,6 +28,13 @@ class ViewController: UIViewController {
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
+    }
+}
+
+extension ViewController: Shelf.ViewDelegate {
+
+    func shelfView(shelfView: View, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+        println("select indexPath section:\(indexPath.section), item:\(indexPath.row)")
     }
 }
 

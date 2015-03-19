@@ -10,7 +10,7 @@ import UIKit
 
 @objc
 public protocol ViewDelegate {
-    // did select indexpath
+    func shelfView(shelfView: Shelf.View, didSelectItemAtIndexPath indexPath: NSIndexPath)
 }
 
 @objc
@@ -139,11 +139,28 @@ class DataController: NSObject {
     weak var view: View?
 }
 
+class Button: UIButton {
+    var indexPath: NSIndexPath?
+}
+
 extension DataController {
 
     func createCell(fromDataSource dataSource: ViewDataSource, indexPath: NSIndexPath) -> UICollectionViewCell {
         // TODO: swizzle or catch notification when did select cell
         let cell = dataSource.shelfView(view!, cellForItemAtIndexPath: indexPath)
+
+        // TODO: will best effort solution
+        let tag = 1111
+        if cell.contentView.viewWithTag(tag) == nil {
+            let button = Button(frame: cell.contentView.bounds)
+            button.tag = tag
+            button.indexPath = indexPath
+            button.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+            button.addTarget(self, action: "didSelectCell:", forControlEvents: .TouchUpInside)
+            cell.contentView.addSubview(button)
+            cell.sendSubviewToBack(button)
+        }
+
         return cell
     }
 
@@ -166,6 +183,10 @@ extension DataController {
         }
 
         return cells
+    }
+
+    func didSelectCell(sender: Button) {
+        view?.delegate?.shelfView(view!, didSelectItemAtIndexPath: sender.indexPath!)
     }
 
 }
