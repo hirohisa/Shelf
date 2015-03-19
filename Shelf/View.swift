@@ -87,10 +87,6 @@ extension View {
 
 }
 
-class CollectionView: UICollectionView {
-    var section = 0
-}
-
 private let SectionReuseIdentifier = "section"
 
 class SectionViewCell: UITableViewCell {
@@ -145,17 +141,23 @@ class DataController: NSObject {
 
 extension DataController {
 
+    func createCell(fromDataSource dataSource: ViewDataSource, indexPath: NSIndexPath) -> UICollectionViewCell {
+        // TODO: swizzle or catch notification when did select cell
+        let cell = dataSource.shelfView(view!, cellForItemAtIndexPath: indexPath)
+        return cell
+    }
+
     func createCells(section: Int) -> [UICollectionViewCell] {
 
         var cells = [UICollectionViewCell]()
         if let dataSource = view?.dataSource {
-
+            let shelfView = view!
             var x = CGFloat(0)
-            for index in 0..<dataSource.shelfView(view!, numberOfItemsInSection: section) {
+            for index in 0..<dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
                 let indexPath = NSIndexPath(forItem: index, inSection: section)
-                let cell = dataSource.shelfView(view!, cellForItemAtIndexPath: indexPath)
-                let width = dataSource.shelfView(view!, widthFotItemAtIndexPath: indexPath)
-                let height = dataSource.shelfView(view!, heightForSection: section)
+                let cell = createCell(fromDataSource: dataSource, indexPath: indexPath)
+                let width = dataSource.shelfView(shelfView, widthFotItemAtIndexPath: indexPath)
+                let height = dataSource.shelfView(shelfView, heightForSection: section)
                 cell.frame = CGRect(x: x, y: 0, width: width, height: height)
 
                 cells.append(cell)
@@ -194,6 +196,8 @@ extension DataController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let sectionCell = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as SectionViewCell
+
+        // TODO: create only visible cells
         let cells = createCells(indexPath.section)
 
         for cell in cells {
