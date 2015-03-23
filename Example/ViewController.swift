@@ -49,13 +49,18 @@ extension ViewController: Shelf.ViewDataSource {
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
-        return section + 1
+        return 20
     }
 
     func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
-        cell.backgroundColor = UIColor.blackColor()
-        println("1")
+
+        switch indexPath.row%2 {
+        case 0:
+            cell.backgroundColor = UIColor.blackColor()
+        default:
+            cell.backgroundColor = UIColor.grayColor()
+        }
 
         return cell
     }
