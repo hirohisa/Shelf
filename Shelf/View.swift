@@ -225,6 +225,10 @@ extension DataController: UITableViewDataSource {
             sectionCell.scrollView.addSubview(cell)
         }
 
+        let width = cells.last?.frame.maxX ?? sectionCell.frame.width
+        let contentSize = CGSize(width: width, height: sectionCell.frame.height)
+        sectionCell.scrollView.contentSize = contentSize
+
         return sectionCell
     }
 }
