@@ -76,7 +76,7 @@ extension View {
             return cell
         }
 
-        return UIView()
+        fatalError("unable to dequeue a cell with identifier Cell - must register a nib or a class")
     }
 
     public func registerClass(cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
