@@ -17,7 +17,6 @@ class ViewController: UIViewController {
         let frame = view.bounds
 
         let shelfView = Shelf.View(frame: frame)
-        println(shelfView)
         shelfView.dataSource = self
         shelfView.delegate = self
         shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
@@ -45,7 +44,7 @@ extension ViewController: Shelf.ViewDataSource {
     }
 
     func shelfView(shelfView: Shelf.View, heightForSection section: Int) -> CGFloat {
-        return CGFloat(120)
+        return 120
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
@@ -66,7 +65,12 @@ extension ViewController: Shelf.ViewDataSource {
     }
 
     func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
+        switch indexPath.row%2 {
+        case 0:
+            return 100
+        default:
+            return 80
+        }
     }
 
 }
