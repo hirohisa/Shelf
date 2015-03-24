@@ -94,7 +94,7 @@ extension View {
 
 private let SectionReuseIdentifier = "section"
 
-class SectionViewCell: UITableViewCell {
+class SectionView: UITableViewCell {
 
     let scrollView: UIScrollView = {
         let view = UIScrollView(frame: CGRectZero)
@@ -136,7 +136,7 @@ class TableView: UITableView {
         backgroundColor = UIColor.blueColor()
         autoresizingMask = .FlexibleWidth | .FlexibleHeight
         allowsSelection = false
-        registerClass(SectionViewCell.self, forCellReuseIdentifier: SectionReuseIdentifier)
+        registerClass(SectionView.self, forCellReuseIdentifier: SectionReuseIdentifier)
     }
 }
 
@@ -237,19 +237,19 @@ extension DataController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let sectionCell = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as SectionViewCell
+        let view = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as SectionView
 
         // TODO: create only visible cells
         let cells = createCells(indexPath.section)
 
         for cell in cells {
-            sectionCell.scrollView.addSubview(cell)
+            view.scrollView.addSubview(cell)
         }
 
-        let width = cells.last?.frame.maxX ?? sectionCell.frame.width
-        let contentSize = CGSize(width: width, height: sectionCell.frame.height - 1) // TODO: scrolling will be disabled by using delegate
-        sectionCell.scrollView.contentSize = contentSize
+        let width = cells.last?.frame.maxX ?? view.frame.width
+        let contentSize = CGSize(width: width, height: view.frame.height - 1) // TODO: scrolling will be disabled by using delegate
+        view.scrollView.contentSize = contentSize
 
-        return sectionCell
+        return view
     }
 }
