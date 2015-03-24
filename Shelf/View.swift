@@ -18,8 +18,13 @@ public protocol ViewDataSource {
     func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int
     func shelfView(shelfView: Shelf.View, heightForSection section: Int) -> CGFloat
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int
+
     func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
     func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat
+
+    // TODO: enable to set tableview cell or header in section
+    func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat
+    func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView?
 }
 
 public class View: UIView {
@@ -213,6 +218,22 @@ extension DataController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
+    }
+
+    func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        if let dataSource = view?.dataSource {
+            return dataSource.shelfView(view!, heightForHeaderInSection: section)
+        }
+
+        return 0
+    }
+
+    func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let dataSource = view?.dataSource {
+            return dataSource.shelfView(view!, viewForHeaderInSection: section)
+        }
+
+        return nil
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
