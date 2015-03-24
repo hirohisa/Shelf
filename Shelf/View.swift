@@ -40,13 +40,8 @@ public class View: UIView {
     let tableView: TableView
     required override public init(frame: CGRect) {
         tableView = TableView(frame: frame, style: .Plain)
-
         super.init(frame: frame)
-        addSubview(tableView)
-
-        dataController.view = self
-        tableView.delegate = dataController
-        tableView.dataSource = dataController
+        configure()
     }
 
     required public convenience init(coder aDecoder: NSCoder) {
@@ -59,6 +54,15 @@ public class View: UIView {
 }
 
 extension View {
+
+    func configure() {
+        addSubview(tableView)
+
+        dataController.view = self
+        tableView.delegate = dataController
+        tableView.dataSource = dataController
+    }
+
     func reloadData() {
     }
 }
