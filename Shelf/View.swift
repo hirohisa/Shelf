@@ -37,16 +37,16 @@ public class View: UIView {
     }
     let dataController = DataController()
 
-    let sectionView: SectionView
+    let tableView: TableView
     required override public init(frame: CGRect) {
-        sectionView = SectionView(frame: frame, style: .Plain)
+        tableView = TableView(frame: frame, style: .Plain)
 
         super.init(frame: frame)
-        addSubview(sectionView)
+        addSubview(tableView)
 
         dataController.view = self
-        sectionView.delegate = dataController
-        sectionView.dataSource = dataController
+        tableView.delegate = dataController
+        tableView.dataSource = dataController
     }
 
     required public convenience init(coder aDecoder: NSCoder) {
@@ -121,7 +121,7 @@ class SectionViewCell: UITableViewCell {
 
 }
 
-class SectionView: UITableView {
+class TableView: UITableView {
 
     required override init(frame: CGRect, style: UITableViewStyle) {
         super.init(frame: frame, style: style)
