@@ -226,7 +226,7 @@ extension DataController: UITableViewDataSource {
         }
 
         let width = cells.last?.frame.maxX ?? sectionCell.frame.width
-        let contentSize = CGSize(width: width, height: sectionCell.frame.height)
+        let contentSize = CGSize(width: width, height: sectionCell.frame.height - 1) // TODO: scrolling will be disabled by using delegate
         sectionCell.scrollView.contentSize = contentSize
 
         return sectionCell
