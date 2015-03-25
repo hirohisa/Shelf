@@ -43,8 +43,21 @@ extension ViewController: Shelf.ViewDataSource {
         return 2
     }
 
-    func shelfView(shelfView: Shelf.View, heightForSection section: Int) -> CGFloat {
-        return 120
+    func shelfView(shelfView: Shelf.View, heightFotItemInSection section: Int) -> CGFloat {
+        return 100
+    }
+
+    func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        switch indexPath.row%2 {
+        case 0:
+            return 100
+        default:
+            return 80
+        }
+    }
+
+    func shelfView(shelfView: Shelf.View, stretchForSection section: Int) -> SectionStretch {
+        return .Vertical
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
@@ -62,15 +75,6 @@ extension ViewController: Shelf.ViewDataSource {
         }
 
         return cell
-    }
-
-    func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        switch indexPath.row%2 {
-        case 0:
-            return 100
-        default:
-            return 80
-        }
     }
 
     func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat {

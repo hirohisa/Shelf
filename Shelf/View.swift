@@ -8,29 +8,34 @@
 
 import UIKit
 
-@objc
 public protocol ViewDelegate {
     func shelfView(shelfView: Shelf.View, didSelectItemAtIndexPath indexPath: NSIndexPath)
 }
 
-@objc
 public protocol ViewDataSource {
     func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int
-    func shelfView(shelfView: Shelf.View, heightForSection section: Int) -> CGFloat
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int
 
     func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell
+
+    func shelfView(shelfView: Shelf.View, heightFotItemInSection section: Int) -> CGFloat
     func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat
+    func shelfView(shelfView: Shelf.View, stretchForSection section: Int) -> SectionStretch
 
     // TODO: enable to set tableview cell or header in section
     func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat
     func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView?
 }
 
+public enum SectionStretch : Int {
+    case Horizontal
+    case Vertical
+}
+
 public class View: UIView {
 
-    public weak var delegate: ViewDelegate?
-    public weak var dataSource: ViewDataSource? {
+    public var delegate: ViewDelegate?
+    public var dataSource: ViewDataSource? {
         didSet {
             reloadData()
         }
@@ -175,16 +180,119 @@ extension DataController {
 
     func createCells(section: Int) -> [UICollectionViewCell] {
 
+        if let dataSource = view?.dataSource {
+            switch dataSource.shelfView(view!, stretchForSection: section) {
+            case .Horizontal:
+                return createCells(_horizontal : section)
+            case .Vertical:
+                return createCells(_vertical : section)
+            default:
+                break
+            }
+        }
+
+        return [UICollectionViewCell]()
+    }
+
+    func didSelectCell(sender: Button) {
+        view?.delegate?.shelfView(view!, didSelectItemAtIndexPath: sender.indexPath!)
+    }
+}
+
+extension DataController: UITableViewDelegate {
+
+    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+
+        let section = indexPath.section
+        if let dataSource = view?.dataSource {
+            switch dataSource.shelfView(view!, stretchForSection: section) {
+            case .Horizontal:
+                return _horizontal(tableView: tableView, section: section)
+            case .Vertical:
+                return _vertical(tableView: tableView, section: section)
+            default:
+                break
+            }
+        }
+
+        return 60
+    }
+}
+
+extension DataController {
+
+    // TODO: rename all methods
+
+    func _horizontal(#tableView: UITableView, section: Int) -> CGFloat {
+        return view!.dataSource!.shelfView(view!, heightFotItemInSection: section)
+    }
+
+    func _vertical(#tableView: UITableView, section: Int) -> CGFloat {
+        let shelfView = view!
+        let dataSource = shelfView.dataSource!
+
+        var length: Int = 0
+        var x: CGFloat = 0
+        for index in 0..<dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
+            let indexPath = NSIndexPath(forItem: index, inSection: section)
+            let width = dataSource.shelfView(view!, widthFotItemAtIndexPath: indexPath)
+
+            // TODO: Rewrite tableView to shelfView
+            if shelfView.frame.width < x + width {
+                x = 0
+                length += 1
+            }
+            x += width
+        }
+
+        let height = dataSource.shelfView(view!, heightFotItemInSection: section)
+
+        return height * CGFloat(length)
+    }
+
+
+    func createCells(_horizontal section: Int) -> [UICollectionViewCell] {
+
         var cells = [UICollectionViewCell]()
         if let dataSource = view?.dataSource {
             let shelfView = view!
-            var x = CGFloat(0)
+            var x: CGFloat = 0
             for index in 0..<dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
                 let indexPath = NSIndexPath(forItem: index, inSection: section)
                 let cell = createCell(fromDataSource: dataSource, indexPath: indexPath)
                 let width = dataSource.shelfView(shelfView, widthFotItemAtIndexPath: indexPath)
-                let height = dataSource.shelfView(shelfView, heightForSection: section)
+                let height = dataSource.shelfView(shelfView, heightFotItemInSection: section)
                 cell.frame = CGRect(x: x, y: 0, width: width, height: height)
+                x = cell.frame.maxX
+
+                cells.append(cell)
+            }
+        }
+
+        return cells
+    }
+
+    func createCells(_vertical section: Int) -> [UICollectionViewCell] {
+
+        var cells = [UICollectionViewCell]()
+        if let dataSource = view?.dataSource {
+            let shelfView = view!
+            var x: CGFloat = 0
+            var length: Int = 0
+            for index in 0..<dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
+                let indexPath = NSIndexPath(forItem: index, inSection: section)
+                let cell = createCell(fromDataSource: dataSource, indexPath: indexPath)
+                let width = dataSource.shelfView(shelfView, widthFotItemAtIndexPath: indexPath)
+                let height = dataSource.shelfView(shelfView, heightFotItemInSection: section)
+
+                if shelfView.frame.width < x + width {
+                    x = 0
+                    length += 1
+                }
+
+                let y = height * CGFloat(length)
+
+                cell.frame = CGRect(x: x, y: y, width: width, height: height)
 
                 cells.append(cell)
                 x = cell.frame.maxX
@@ -194,20 +302,6 @@ extension DataController {
         return cells
     }
 
-    func didSelectCell(sender: Button) {
-        view?.delegate?.shelfView(view!, didSelectItemAtIndexPath: sender.indexPath!)
-    }
-
-}
-
-extension DataController: UITableViewDelegate {
-    func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        if let dataSource = view?.dataSource {
-            return dataSource.shelfView(view!, heightForSection: indexPath.section)
-        }
-
-        return 60
-    }
 }
 
 extension DataController: UITableViewDataSource {
