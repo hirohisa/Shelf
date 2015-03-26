@@ -20,14 +20,14 @@ public protocol ViewDataSource {
 
     func shelfView(shelfView: Shelf.View, heightFotItemInSection section: Int) -> CGFloat
     func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat
-    func shelfView(shelfView: Shelf.View, stretchForSection section: Int) -> SectionStretch
+    func shelfView(shelfView: Shelf.View, contentModeForSection section: Int) -> ContentMode
 
     // TODO: enable to set tableview cell or header in section
     func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat
     func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView?
 }
 
-public enum SectionStretch : Int {
+public enum ContentMode : Int {
     case Horizontal
     case Vertical
 }
@@ -181,7 +181,7 @@ extension DataController {
     func createCells(section: Int) -> [UICollectionViewCell] {
 
         if let dataSource = view?.dataSource {
-            switch dataSource.shelfView(view!, stretchForSection: section) {
+            switch dataSource.shelfView(view!, contentModeForSection: section) {
             case .Horizontal:
                 return createCells(_horizontal : section)
             case .Vertical:
@@ -205,7 +205,7 @@ extension DataController: UITableViewDelegate {
 
         let section = indexPath.section
         if let dataSource = view?.dataSource {
-            switch dataSource.shelfView(view!, stretchForSection: section) {
+            switch dataSource.shelfView(view!, contentModeForSection: section) {
             case .Horizontal:
                 return _horizontal(tableView: tableView, section: section)
             case .Vertical:

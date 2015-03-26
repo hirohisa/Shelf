@@ -71,7 +71,7 @@ extension ViewController: Shelf.ViewDataSource {
         }
     }
 
-    func shelfView(shelfView: Shelf.View, stretchForSection section: Int) -> SectionStretch {
+    func shelfView(shelfView: Shelf.View, contentModeForSection section: Int) -> ContentMode {
         return .Vertical
     }
 
