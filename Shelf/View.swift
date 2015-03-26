@@ -247,7 +247,7 @@ extension DataController {
 
         let height = dataSource.shelfView(view!, heightFotItemInSection: section)
 
-        return height * CGFloat(length)
+        return height * CGFloat(length + 1)
     }
 
 
