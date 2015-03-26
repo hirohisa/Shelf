@@ -9,6 +9,22 @@
 import UIKit
 import Shelf
 
+class CollectionViewCell: UICollectionViewCell {
+
+    let label: UILabel = {
+        let label = UILabel()
+        label.textColor = UIColor.whiteColor()
+        return label
+    }()
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+
+        label.frame = bounds
+        contentView.addSubview(label)
+    }
+}
+
 class ViewController: UIViewController {
 
     override func viewDidLoad() {
@@ -19,7 +35,7 @@ class ViewController: UIViewController {
         let shelfView = Shelf.View(frame: frame)
         shelfView.dataSource = self
         shelfView.delegate = self
-        shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        shelfView.registerClass(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 
         view.addSubview(shelfView)
     }
@@ -64,7 +80,7 @@ extension ViewController: Shelf.ViewDataSource {
     }
 
     func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
+        let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as CollectionViewCell
 
         switch indexPath.row%2 {
         case 0:
@@ -72,6 +88,8 @@ extension ViewController: Shelf.ViewDataSource {
         default:
             cell.backgroundColor = UIColor.grayColor()
         }
+
+        cell.label.text = "item:\(indexPath.row)"
 
         return cell
     }
