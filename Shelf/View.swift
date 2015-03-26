@@ -32,7 +32,18 @@ public enum ContentMode : Int {
     case Vertical
 }
 
+public enum SectionHeaderPosition {
+    case Floating
+    case Embedding
+}
+
 public class View: UIView {
+
+    public var headerPosition: SectionHeaderPosition = .Floating {
+        didSet {
+            reloadData()
+        }
+    }
 
     public var delegate: ViewDelegate?
     public var dataSource: ViewDataSource? {
