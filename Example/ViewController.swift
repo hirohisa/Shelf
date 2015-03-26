@@ -20,7 +20,6 @@ class ViewController: UIViewController {
         shelfView.dataSource = self
         shelfView.delegate = self
         shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-        edgesForExtendedLayout = .None
 
         view.addSubview(shelfView)
     }
