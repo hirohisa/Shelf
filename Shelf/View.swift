@@ -214,6 +214,24 @@ extension DataController: UITableViewDelegate {
 
         let section = indexPath.section
         if let dataSource = view?.dataSource {
+            switch view!.headerPosition {
+            case .Embedding:
+                switch indexPath.row {
+                case 0:
+                    return dataSource.shelfView(view!, heightForHeaderInSection: section)
+                default:
+                    break
+                }
+            default:
+                break
+            }
+        }
+        return _tableView(tableView, heightForRowAtIndexPath: indexPath)
+    }
+
+    func _tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+        let section = indexPath.section
+        if let dataSource = view?.dataSource {
             switch dataSource.shelfView(view!, contentModeForSection: section) {
             case .Horizontal:
                 return _horizontal(tableView: tableView, section: section)
@@ -223,7 +241,6 @@ extension DataController: UITableViewDelegate {
                 break
             }
         }
-
         return 60
     }
 }
@@ -324,12 +341,22 @@ extension DataController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 1
+        switch view!.headerPosition {
+        case .Floating:
+            return 1
+        case .Embedding:
+            return 2
+        }
     }
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if let dataSource = view?.dataSource {
-            return dataSource.shelfView(view!, heightForHeaderInSection: section)
+            switch view!.headerPosition {
+            case .Floating:
+                return dataSource.shelfView(view!, heightForHeaderInSection: section)
+            default:
+                break
+            }
         }
 
         return 0
@@ -337,13 +364,46 @@ extension DataController: UITableViewDataSource {
 
     func tableView(tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if let dataSource = view?.dataSource {
-            return dataSource.shelfView(view!, viewForHeaderInSection: section)
+            switch view!.headerPosition {
+            case .Floating:
+                return dataSource.shelfView(view!, viewForHeaderInSection: section)
+            default:
+                break
+            }
         }
 
         return nil
     }
 
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+        switch view!.headerPosition {
+        case .Floating:
+            return _tableView(tableView, cellForRowAtIndexPath: indexPath)
+        case .Embedding:
+            switch indexPath.row {
+            case 0:
+                return _embedding(tableView, cellForRowAtIndexPath: indexPath)
+            default:
+                return _tableView(tableView, cellForRowAtIndexPath: indexPath)
+            }
+        }
+    }
+
+    // TODO: Refactor
+    func _embedding(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+
+        let cell = UITableViewCell(style: .Default, reuseIdentifier: nil)
+
+        let header = view!.dataSource!.shelfView(view!, viewForHeaderInSection: indexPath.section)
+        if let header = header {
+            cell.contentView.addSubview(header)
+        }
+
+        return cell
+    }
+
+    func _tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let view = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as SectionView
 
         // TODO: create only visible cells
