@@ -108,7 +108,6 @@ class SectionView: UITableViewCell {
     let scrollView: UIScrollView = {
         let view = UIScrollView(frame: CGRectZero)
         view.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        view.backgroundColor = UIColor.purpleColor()
         return view
     }()
 
@@ -142,7 +141,6 @@ class TableView: UITableView {
     }
 
     func configure() {
-        backgroundColor = UIColor.blueColor()
         autoresizingMask = .FlexibleWidth | .FlexibleHeight
         allowsSelection = false
         registerClass(SectionView.self, forCellReuseIdentifier: SectionReuseIdentifier)
