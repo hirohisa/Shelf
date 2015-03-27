@@ -35,6 +35,7 @@ class ViewController: UIViewController {
         let shelfView = Shelf.View(frame: frame)
         shelfView.dataSource = self
         shelfView.delegate = self
+        shelfView.headerPosition = .Embedding
         shelfView.registerClass(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
 
         view.addSubview(shelfView)
