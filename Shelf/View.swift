@@ -79,7 +79,8 @@ extension View {
         tableView.dataSource = dataController
     }
 
-    func reloadData() {
+    public func reloadData() {
+        tableView.reloadData()
     }
 }
 
