@@ -83,12 +83,21 @@ extension ViewController: Shelf.ViewDataSource {
     func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as CollectionViewCell
 
+        var backgroundColor = UIColor.blackColor()
+        var selectedBackgroundColor = UIColor.yellowColor()
         switch indexPath.row%2 {
-        case 0:
-            cell.backgroundColor = UIColor.blackColor()
+        case 1:
+            backgroundColor = UIColor.grayColor()
         default:
-            cell.backgroundColor = UIColor.grayColor()
+            break
         }
+
+        let selectedBackgroundView = UIView(frame: cell.bounds)
+
+        cell.backgroundColor = backgroundColor
+        selectedBackgroundView.backgroundColor = selectedBackgroundColor
+
+        cell.selectedBackgroundView = selectedBackgroundView
 
         cell.label.text = "item:\(indexPath.row)"
 

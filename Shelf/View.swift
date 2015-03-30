@@ -205,6 +205,11 @@ extension DataController {
     }
 
     func didSelectCell(sender: Button) {
+        let cell = sender.superview?.superview
+
+        if let cell = cell as? UICollectionViewCell {
+            cell.selected = !cell.selected
+        }
         view?.delegate?.shelfView(view!, didSelectItemAtIndexPath: sender.indexPath!)
     }
 }
