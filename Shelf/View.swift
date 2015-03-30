@@ -412,6 +412,10 @@ extension DataController: UITableViewDataSource {
     func _tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let view = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as SectionView
 
+        for cell in view.scrollView.subviews {
+            cell.removeFromSuperview()
+        }
+
         // TODO: create only visible cells
         let cells = createCells(indexPath.section)
 
