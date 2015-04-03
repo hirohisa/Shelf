@@ -169,10 +169,10 @@ class Button: UIButton {
 extension DataController {
 
     func createCell(fromDataSource dataSource: ViewDataSource, indexPath: NSIndexPath) -> UICollectionViewCell {
-        // TODO: swizzle or catch notification when did select cell
+
         let cell = dataSource.shelfView(view!, cellForItemAtIndexPath: indexPath)
 
-        // TODO: will best effort solution
+        // TODO: will change best solution
         let tag = 1111
         if cell.contentView.viewWithTag(tag) == nil {
             let button = Button(frame: cell.contentView.bounds)
