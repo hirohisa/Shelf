@@ -22,7 +22,6 @@ public protocol ViewDataSource {
     func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat
     func shelfView(shelfView: Shelf.View, contentModeForSection section: Int) -> ContentMode
 
-    // TODO: enable to set tableview cell or header in section
     func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat
     func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView?
 }
