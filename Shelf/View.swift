@@ -26,7 +26,7 @@ public protocol ViewDataSource {
     func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView?
 }
 
-public enum ContentMode : Int {
+public enum ContentMode {
     case Horizontal
     case Vertical
 }
