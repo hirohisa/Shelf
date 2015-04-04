@@ -154,6 +154,7 @@ class TableView: UITableView {
     func configure() {
         autoresizingMask = .FlexibleWidth | .FlexibleHeight
         allowsSelection = false
+        separatorStyle = .None
         registerClass(SectionView.self, forCellReuseIdentifier: SectionReuseIdentifier)
     }
 }
