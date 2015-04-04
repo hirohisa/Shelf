@@ -48,7 +48,7 @@ shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "
   }
   ```
 
-  - Set `SectionHeaderPosition`, section header stays anchored or not
+- Set `SectionHeaderPosition`, section header stays anchored or not
 
   ```swift
   enum SectionHeaderPosition {
