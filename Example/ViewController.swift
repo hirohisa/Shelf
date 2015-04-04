@@ -105,11 +105,15 @@ extension ViewController: Shelf.ViewDataSource {
     }
 
     func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat {
-        return 10
+        return 50
     }
 
     func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView? {
-        return nil
+        let label = UILabel()
+        label.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        label.text = "section: \(section)"
+        label.sizeToFit()
+        return label
     }
 
 }
