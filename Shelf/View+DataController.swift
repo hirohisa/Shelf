@@ -14,19 +14,25 @@ extension View.DataController {
 
         let cell = dataSource.shelfView(view!, cellForItemAtIndexPath: indexPath)
 
-        // TODO: will change best solution
-        let tag = 1111
-        if cell.contentView.viewWithTag(tag) == nil {
-            let button = Button(frame: cell.contentView.bounds)
-            button.tag = tag
-            button.indexPath = indexPath
-            button.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-            button.addTarget(self, action: "didSelectCell:", forControlEvents: .TouchUpInside)
-            cell.contentView.addSubview(button)
-            cell.sendSubviewToBack(button)
-        }
+        let button = createButtonOrFindInView(cell.contentView)
+        button.indexPath = indexPath
 
         return cell
+    }
+
+    func createButtonOrFindInView(view: UIView) -> Button {
+        for subview in view.subviews {
+            if let subview = subview as? Button {
+                return subview
+            }
+        }
+
+        let button = Button(frame: view.bounds)
+        button.autoresizingMask = .FlexibleWidth | .FlexibleHeight
+        button.addTarget(self, action: "didSelectCell:", forControlEvents: .TouchUpInside)
+        view.addSubview(button)
+        view.sendSubviewToBack(button)
+        return button
     }
 
     func createCells(section: Int) -> [UICollectionViewCell] {
