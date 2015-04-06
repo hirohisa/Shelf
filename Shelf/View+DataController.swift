@@ -200,9 +200,11 @@ extension View.DataController: UITableViewDataSource {
         }
 
         // Contents
-        let numbers = view!.dataSource!.shelfView(view!, numberOfItemsInSection: section)
-        if numbers > 0 {
-            rows += 1
+        if let view = view {
+            let numbers = view.dataSource?.shelfView(view, numberOfItemsInSection: section)
+            if numbers > 0 {
+                rows += 1
+            }
         }
 
         return rows
