@@ -72,22 +72,13 @@ public class View: UIView {
     private var reuseCells = [String: [UICollectionReusableView]]()
 }
 
+// MARK: Public methods
+
 extension View {
-
-    func configure() {
-        addSubview(tableView)
-
-        dataController.view = self
-        tableView.delegate = dataController
-        tableView.dataSource = dataController
-    }
 
     public func reloadData() {
         tableView.reloadData()
     }
-}
-
-extension View {
 
     public func dequeueReusableCellWithReuseIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> AnyObject {
         if let result = reuseCells[identifier]?.first {
@@ -108,12 +99,23 @@ extension View {
             reuseClasses[identifier] = cellClass
         }
     }
+
     public func registerNib(nib: UINib?, forCellWithReuseIdentifier identifier: String) {
         if let nib = nib {
             reuseNibs[identifier] = nib
         }
     }
+}
 
+extension View {
+
+    func configure() {
+        addSubview(tableView)
+
+        dataController.view = self
+        tableView.delegate = dataController
+        tableView.dataSource = dataController
+    }
 }
 
 let SectionReuseIdentifier = "section"
