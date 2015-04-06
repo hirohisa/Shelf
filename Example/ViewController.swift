@@ -28,6 +28,7 @@ class CollectionViewCell: UICollectionViewCell {
 class ViewController: UIViewController {
 
     var shelfView: Shelf.View?
+    var show1stSection = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,14 +44,19 @@ class ViewController: UIViewController {
 
         self.shelfView = shelfView
 
-        let barButtonItem = UIBarButtonItem(title: "reload", style: .Plain, target: self, action: "reload")
+        let barButtonItem = UIBarButtonItem(title: "toggle", style: .Plain, target: self, action: "toggle")
         navigationItem.rightBarButtonItem = barButtonItem
     }
 
-    func reload() {
+    func toggle() {
         if let shelfView = shelfView {
             shelfView.beginUpdates()
-            shelfView.reloadContentsInSections([0,1], withRowAnimation: .Automatic)
+            if show1stSection {
+                shelfView.deleteContentsInSections([0,1], withRowAnimation: .Automatic)
+            } else {
+                shelfView.insertContentsInSections([0,1], withRowAnimation: .Automatic)
+            }
+            show1stSection = !show1stSection
             shelfView.endUpdates()
         }
     }
@@ -91,7 +97,10 @@ extension ViewController: Shelf.ViewDataSource {
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        if show1stSection {
+            return 20
+        }
+        return 0
     }
 
     func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
