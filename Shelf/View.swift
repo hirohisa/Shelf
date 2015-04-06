@@ -76,9 +76,35 @@ public class View: UIView {
 
 extension View {
 
+    // Data
+
     public func reloadData() {
         tableView.reloadData()
     }
+
+    // Row insertion/deletion/reloading.
+
+    public func beginUpdates() {
+        tableView.beginUpdates()
+    }
+
+    public func endUpdates() {
+        tableView.endUpdates()
+    }
+
+    public func insertContentsInSections(sections: [Int], withRowAnimation animation: UITableViewRowAnimation) {
+        tableView.insertRowsAtIndexPaths(indexPathsInSections(sections), withRowAnimation: animation)
+    }
+
+    public func deleteContentsInSections(sections: [Int], withRowAnimation animation: UITableViewRowAnimation) {
+        tableView.deleteRowsAtIndexPaths(indexPathsInSections(sections), withRowAnimation: animation)
+    }
+
+    public func reloadContentsInSections(sections: [Int], withRowAnimation animation: UITableViewRowAnimation) {
+        tableView.reloadRowsAtIndexPaths(indexPathsInSections(sections), withRowAnimation: animation)
+    }
+
+    // Appearance
 
     public func dequeueReusableCellWithReuseIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> AnyObject {
         if let result = reuseCells[identifier]?.first {
@@ -115,6 +141,27 @@ extension View {
         dataController.view = self
         tableView.delegate = dataController
         tableView.dataSource = dataController
+    }
+
+    func indexPathsInSections(sections: [Int]) -> [NSIndexPath] {
+
+        var indexPaths = [NSIndexPath]()
+        for section in sections {
+
+            var indexPath: NSIndexPath?
+            switch headerPosition {
+            case .Floating:
+                indexPath = NSIndexPath(forRow: 0, inSection: section)
+            case .Embedding:
+                indexPath = NSIndexPath(forRow: 1, inSection: section)
+            }
+
+            if let indexPath = indexPath {
+                indexPaths.append(indexPath)
+            }
+        }
+
+        return indexPaths
     }
 }
 

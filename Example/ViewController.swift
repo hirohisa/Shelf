@@ -27,6 +27,8 @@ class CollectionViewCell: UICollectionViewCell {
 
 class ViewController: UIViewController {
 
+    var shelfView: Shelf.View?
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -37,8 +39,20 @@ class ViewController: UIViewController {
         shelfView.delegate = self
         shelfView.headerPosition = .Embedding
         shelfView.registerClass(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-
         view.addSubview(shelfView)
+
+        self.shelfView = shelfView
+
+        let barButtonItem = UIBarButtonItem(title: "reload", style: .Plain, target: self, action: "reload")
+        navigationItem.rightBarButtonItem = barButtonItem
+    }
+
+    func reload() {
+        if let shelfView = shelfView {
+            shelfView.beginUpdates()
+            shelfView.reloadContentsInSections([0,1], withRowAnimation: .Automatic)
+            shelfView.endUpdates()
+        }
     }
 
     override func didReceiveMemoryWarning() {
