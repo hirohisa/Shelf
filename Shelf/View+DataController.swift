@@ -188,12 +188,24 @@ extension View.DataController: UITableViewDataSource {
     }
 
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+
+        var rows = 0
+
+        // Header
         switch view!.headerPosition {
         case .Floating:
-            return 1
+            break
         case .Embedding:
-            return 2
+            rows += 1
         }
+
+        // Contents
+        let numbers = view!.dataSource!.shelfView(view!, numberOfItemsInSection: section)
+        if numbers > 0 {
+            rows += 1
+        }
+
+        return rows
     }
 
     func tableView(tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
