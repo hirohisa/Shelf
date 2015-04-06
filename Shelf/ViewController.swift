@@ -10,7 +10,7 @@ import UIKit
 
 public class ViewController: UIViewController {
 
-    public var shelfView: Shelf.View = {
+    public var shelfView: View = {
         let view = Shelf.View(frame: CGRectZero)
         view.autoresizingMask = .FlexibleWidth | .FlexibleHeight
         return view
