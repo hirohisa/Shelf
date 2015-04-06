@@ -42,7 +42,7 @@ extension View.DataController {
             }
         }
 
-        return [UICollectionViewCell]()
+        return []
     }
 
     func didSelectCell(sender: Button) {
