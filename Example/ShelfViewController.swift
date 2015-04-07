@@ -15,8 +15,6 @@ class ShelfViewController: Shelf.ViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        shelfView.dataSource = self
-        shelfView.delegate = self
 
         // default is .Floating
         // shelfView.headerPosition = .Floating
@@ -35,26 +33,28 @@ class ShelfViewController: Shelf.ViewController {
         show1stSection = !show1stSection
         shelfView.endUpdates()
     }
-}
 
-extension ShelfViewController: Shelf.ViewDelegate {
+    // ViewDelegate
 
-    func shelfView(shelfView: View, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+    override func shelfView(shelfView: View, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         println("select indexPath section:\(indexPath.section), item:\(indexPath.row)")
     }
-}
 
-extension ShelfViewController: Shelf.ViewDataSource {
+    // ViewDataSource
 
-    func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int {
+    override func shelfView(shelfView: Shelf.View, contentModeForSection section: Int) -> ContentMode {
+        return .Vertical
+    }
+
+    override func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int {
         return 2
     }
 
-    func shelfView(shelfView: Shelf.View, heightFotItemInSection section: Int) -> CGFloat {
+    override func shelfView(shelfView: Shelf.View, heightFotItemInSection section: Int) -> CGFloat {
         return 100
     }
 
-    func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
+    override func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         switch indexPath.row%2 {
         case 0:
             return 100
@@ -63,18 +63,15 @@ extension ShelfViewController: Shelf.ViewDataSource {
         }
     }
 
-    func shelfView(shelfView: Shelf.View, contentModeForSection section: Int) -> ContentMode {
-        return .Vertical
-    }
 
-    func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
+    override func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
         if show1stSection {
             return 20
         }
         return 0
     }
 
-    func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+    override func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as CollectionViewCell
 
         var backgroundColor = UIColor.blackColor()
@@ -98,11 +95,11 @@ extension ShelfViewController: Shelf.ViewDataSource {
         return cell
     }
 
-    func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat {
+    override func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
 
-    func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView? {
+    override func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView? {
         let label = UILabel()
         label.autoresizingMask = .FlexibleWidth | .FlexibleHeight
         label.text = "section: \(section)"
