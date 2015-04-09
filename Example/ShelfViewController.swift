@@ -72,7 +72,7 @@ class ShelfViewController: Shelf.ViewController {
     }
 
     override func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as CollectionViewCell
+        let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as! CollectionViewCell
 
         var backgroundColor = UIColor.blackColor()
         var selectedBackgroundColor = UIColor.yellowColor()

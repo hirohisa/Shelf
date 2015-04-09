@@ -271,7 +271,7 @@ extension View.DataController: UITableViewDataSource {
     }
 
     func _tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let view = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as SectionView
+        let view = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as! SectionView
 
         for cell in view.scrollView.subviews {
             cell.removeFromSuperview()
