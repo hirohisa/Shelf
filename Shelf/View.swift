@@ -112,7 +112,7 @@ extension View {
         }
 
         if let result: AnyClass = reuseClasses[identifier] {
-            let cellClass = result as UICollectionViewCell.Type
+            let cellClass = result as! UICollectionViewCell.Type
             let cell = cellClass()
             return cell
         }
