@@ -4,6 +4,13 @@ Shelf is a simple dynamic layout like bookshelf for iOS. It provides like UITabl
 Shelf's base class is comprised of `UITableView`
 
 
+## Features
+
+- [x] Add base logic with DataSource and Delegate.
+- [x] Spread cells' layout vertically or horizontally.
+- [ ] Be enable to set padding for content.
+- [ ] Add content's alignment or create spacing property like `minimumInteritemSpacing`.
+
 ## Installation
 
 There are two ways to use this in your project:
