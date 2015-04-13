@@ -1,12 +1,10 @@
-Shelf
-=======
+# Shelf
 
 Shelf is a simple dynamic layout like bookshelf for iOS. It provides like UITableViewDelegate and UITableViewDatasource about Shelf's protocol.
 Shelf's base class is comprised of `UITableView`
 
 
-Installation
-----------
+## Installation
 
 There are two ways to use this in your project:
 
@@ -20,8 +18,7 @@ use_frameworks!
 pod 'Shelf', :git => 'https://github.com/hirohisa/Shelf.git'
 ```
 
-Usage
-----------
+## Usage
 
 ### Set Delegate, DataSource
 
@@ -70,8 +67,7 @@ extension View {
 }
 ```
 
-Example
------------
+## Example
 
 ### ViewController
 
@@ -129,7 +125,6 @@ extension ViewController: Shelf.ViewDataSource {
 ```
 
 
-License
-----------
+## License
 
 Shelf is available under the MIT license.
