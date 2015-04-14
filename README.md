@@ -3,7 +3,6 @@
 Shelf is a simple dynamic layout like bookshelf for iOS. It provides like UITableViewDelegate and UITableViewDatasource about Shelf's protocol.
 Shelf's base class is comprised of `UITableView`
 
-
 ## Features
 
 - [x] Add base logic with DataSource and Delegate.
@@ -75,6 +74,8 @@ extension View {
 ```
 
 ## Example
+
+![ ](Example/example.jpg)
 
 ### ViewController
 
