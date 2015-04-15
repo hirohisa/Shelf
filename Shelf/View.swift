@@ -43,6 +43,7 @@ public class View: UIView {
             reloadData()
         }
     }
+    public var contentInset = UIEdgeInsetsZero // add spacing area around content
 
     public var delegate: ViewDelegate?
     public var dataSource: ViewDataSource? {

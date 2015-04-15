@@ -29,6 +29,7 @@ class ViewController: UIViewController {
 
     var shelfView: Shelf.View?
     var show1stSection = true
+    var headerPosition = SectionHeaderPosition.Floating
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +39,8 @@ class ViewController: UIViewController {
         let shelfView = Shelf.View(frame: frame)
         shelfView.dataSource = self
         shelfView.delegate = self
-        shelfView.headerPosition = .Embedding
+        shelfView.headerPosition = headerPosition
+        shelfView.contentInset = UIEdgeInsets(top: 20, left: 20, bottom: 20, right: 20)
         shelfView.registerClass(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         view.addSubview(shelfView)
 
@@ -93,7 +95,12 @@ extension ViewController: Shelf.ViewDataSource {
     }
 
     func shelfView(shelfView: Shelf.View, contentModeForSection section: Int) -> ContentMode {
-        return .Vertical
+        switch section {
+        case 0:
+            return .Vertical
+        default:
+            return .Horizontal
+        }
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {

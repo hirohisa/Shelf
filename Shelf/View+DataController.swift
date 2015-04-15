@@ -79,7 +79,8 @@ extension View.DataController: UITableViewDelegate {
                 break
             }
         }
-        return _tableView(tableView, heightForRowAtIndexPath: indexPath)
+        let height = _tableView(tableView, heightForRowAtIndexPath: indexPath)
+        return view!.contentInset.top + height + view!.contentInset.bottom
     }
 
     func _tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
@@ -110,15 +111,16 @@ extension View.DataController {
         let shelfView = view!
         let dataSource = shelfView.dataSource!
 
-        var length: Int = 0
-        var x: CGFloat = 0
-        for index in 0..<dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
+        var x = shelfView.contentInset.left
+        var y = shelfView.contentInset.top
+        var length = 0
+        for index in 0 ..< dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
             let indexPath = NSIndexPath(forItem: index, inSection: section)
             let width = dataSource.shelfView(view!, widthFotItemAtIndexPath: indexPath)
 
             // TODO: Rewrite tableView to shelfView
             if shelfView.frame.width < x + width {
-                x = 0
+                x = shelfView.contentInset.left
                 length += 1
             }
             x += width
@@ -135,13 +137,14 @@ extension View.DataController {
         var cells = [UICollectionViewCell]()
         if let dataSource = view?.dataSource {
             let shelfView = view!
-            var x: CGFloat = 0
-            for index in 0..<dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
+            var x = shelfView.contentInset.left
+            var y = shelfView.contentInset.top
+            for index in 0 ..< dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
                 let indexPath = NSIndexPath(forItem: index, inSection: section)
                 let cell = createCell(fromDataSource: dataSource, indexPath: indexPath)
                 let width = dataSource.shelfView(shelfView, widthFotItemAtIndexPath: indexPath)
                 let height = dataSource.shelfView(shelfView, heightFotItemInSection: section)
-                cell.frame = CGRect(x: x, y: 0, width: width, height: height)
+                cell.frame = CGRect(x: x, y: y, width: width, height: height)
                 x = cell.frame.maxX
 
                 cells.append(cell)
@@ -156,20 +159,20 @@ extension View.DataController {
         var cells = [UICollectionViewCell]()
         if let dataSource = view?.dataSource {
             let shelfView = view!
-            var x: CGFloat = 0
-            var length: Int = 0
-            for index in 0..<dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
+            var x = shelfView.contentInset.left
+            var length = 0
+            for index in 0 ..< dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
                 let indexPath = NSIndexPath(forItem: index, inSection: section)
                 let cell = createCell(fromDataSource: dataSource, indexPath: indexPath)
                 let width = dataSource.shelfView(shelfView, widthFotItemAtIndexPath: indexPath)
                 let height = dataSource.shelfView(shelfView, heightFotItemInSection: section)
 
                 if shelfView.frame.width < x + width {
-                    x = 0
+                    x = shelfView.contentInset.left
                     length += 1
                 }
 
-                let y = height * CGFloat(length)
+                let y = height * CGFloat(length) + shelfView.contentInset.top
 
                 cell.frame = CGRect(x: x, y: y, width: width, height: height)
 
@@ -271,9 +274,9 @@ extension View.DataController: UITableViewDataSource {
     }
 
     func _tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let view = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as! SectionView
+        let sectionView = tableView.dequeueReusableCellWithIdentifier(SectionReuseIdentifier, forIndexPath: indexPath) as! SectionView
 
-        for cell in view.scrollView.subviews {
+        for cell in sectionView.scrollView.subviews {
             cell.removeFromSuperview()
         }
 
@@ -281,13 +284,14 @@ extension View.DataController: UITableViewDataSource {
         let cells = createCells(indexPath.section)
 
         for cell in cells {
-            view.scrollView.addSubview(cell)
+            sectionView.scrollView.addSubview(cell)
         }
 
-        let width = cells.last?.frame.maxX ?? view.frame.width
-        let contentSize = CGSize(width: width, height: view.frame.height - 1) // TODO: scrolling will be disabled by using delegate
-        view.scrollView.contentSize = contentSize
+        var width = cells.last?.frame.maxX ?? sectionView.frame.width
+        width += view!.contentInset.right
+        let contentSize = CGSize(width: width, height: sectionView.frame.height - 1) // TODO: scrolling will be disabled by using delegate
+        sectionView.scrollView.contentSize = contentSize
 
-        return view
+        return sectionView
     }
 }
