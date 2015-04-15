@@ -16,7 +16,7 @@ class MenuViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 2
+        return 3
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -24,8 +24,10 @@ class MenuViewController: UITableViewController {
 
         switch indexPath.row {
         case 0:
-            cell.textLabel?.text = "ViewController"
+            cell.textLabel?.text = "ViewController Floating"
         case 1:
+            cell.textLabel?.text = "ViewController Embedding"
+        case 2:
             cell.textLabel?.text = "ShelfViewController"
         default:
             break
@@ -41,6 +43,10 @@ class MenuViewController: UITableViewController {
             let viewController = ViewController()
             navigationController?.pushViewController(viewController, animated: true)
         case 1:
+            let viewController = ViewController()
+            viewController.headerPosition = .Embedding
+            navigationController?.pushViewController(viewController, animated: true)
+        case 2:
             let viewController = ShelfViewController()
             navigationController?.pushViewController(viewController, animated: true)
             break
