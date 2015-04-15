@@ -1,5 +1,5 @@
 //
-//  View+DataController.swift
+//  DataController.swift
 //  Shelf
 //
 //  Created by Hirohisa Kawasaki on 4/5/15.
