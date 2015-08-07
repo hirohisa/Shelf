@@ -1,20 +1,12 @@
 # Shelf
 
-Shelf is a simple dynamic layout like bookshelf for iOS. It provides like UITableViewDelegate and UITableViewDatasource about Shelf's protocol.
+Shelf can display a view like AppStore for iOS. It provides like UITableViewDelegate and UITableViewDatasource about Shelf's protocol.
 Shelf's base class is comprised of `UITableView`
 
 ## Features
 
-- [x] Add base logic with DataSource and Delegate.
-- [x] Spread cells' layout vertically or horizontally.
-- [ ] Be enable to set padding for content.
-- [ ] Add content's alignment or create spacing property like `minimumInteritemSpacing`.
 
 ## Installation
-
-There are two ways to use this in your project:
-
-- Copy `Shelf` into your project
 
 - Install with CocoaPods to write Podfile
 ```ruby
@@ -41,26 +33,6 @@ shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "
 ```
 
 ### Layout
-
-- Set `ContentMode`, it is direction about spreading of cells every section
-
-  ```swift
-  enum ContentMode {
-      case Horizontal
-      case Vertical
-  }
-  ```
-
-- Set `SectionHeaderPosition`, section header stays anchored or not
-
-  ```swift
-  enum SectionHeaderPosition {
-      case Floating // header stays anchored
-      case Embedding // header scrolls
-  }
-
-  ```
-
 
 ### Reload
 
@@ -89,7 +61,6 @@ class ViewController: UIViewController {
         let shelfView = Shelf.View(frame: frame)
         shelfView.dataSource = self
         shelfView.delegate = self
-        shelfView.headerPosition = .Embedding
         shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
 }
@@ -98,18 +69,6 @@ extension ViewController: Shelf.ViewDataSource {
 
     func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int {
         return 2
-    }
-
-    func shelfView(shelfView: Shelf.View, heightFotItemInSection section: Int) -> CGFloat {
-        return 100
-    }
-
-    func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
-    }
-
-    func shelfView(shelfView: Shelf.View, contentModeForSection section: Int) -> ContentMode {
-        return .Vertical
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
@@ -122,13 +81,6 @@ extension ViewController: Shelf.ViewDataSource {
         return cell
     }
 
-    func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
-    }
-
-    func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView? {
-        return UILabel()
-    }
 }
 ```
 
