@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="ItemCell" customModule="Shelf" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="100" height="150"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wzr-74-46B">
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
+                        <constraints>
+                            <constraint firstAttribute="width" secondItem="wzr-74-46B" secondAttribute="height" multiplier="1:1" id="akK-qG-ZC2"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A1a-90-N2E">
+                        <rect key="frame" x="0.0" y="110" width="100" height="15"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NqM-yC-Zfh">
+                        <rect key="frame" x="0.0" y="125" width="100" height="12"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="10"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="wzr-74-46B" secondAttribute="trailing" id="4Mp-Xp-ycP"/>
+                <constraint firstItem="NqM-yC-Zfh" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="Cnj-ud-9Ha"/>
+                <constraint firstItem="A1a-90-N2E" firstAttribute="top" secondItem="wzr-74-46B" secondAttribute="bottom" constant="10" id="LAl-yl-U58"/>
+                <constraint firstItem="wzr-74-46B" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="PyZ-W5-Jv6"/>
+                <constraint firstItem="wzr-74-46B" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="WeV-0M-3wJ"/>
+                <constraint firstItem="A1a-90-N2E" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="apv-o1-a6X"/>
+                <constraint firstAttribute="trailing" secondItem="NqM-yC-Zfh" secondAttribute="trailing" id="b5m-ce-6MO"/>
+                <constraint firstAttribute="trailing" secondItem="A1a-90-N2E" secondAttribute="trailing" id="bxZ-VA-KhR"/>
+                <constraint firstItem="NqM-yC-Zfh" firstAttribute="top" secondItem="A1a-90-N2E" secondAttribute="bottom" id="wjT-go-SjE"/>
+            </constraints>
+            <connections>
+                <outlet property="imageView" destination="wzr-74-46B" id="rWw-yS-Rgo"/>
+                <outlet property="mainLabel" destination="A1a-90-N2E" id="1aQ-ki-zcX"/>
+                <outlet property="subLabel" destination="NqM-yC-Zfh" id="lBM-cV-dMl"/>
+            </connections>
+            <point key="canvasLocation" x="127" y="220"/>
+        </collectionViewCell>
+    </objects>
+</document>
