@@ -8,17 +8,16 @@
 
 import UIKit
 
-class ItemCell: UICollectionViewCell {
+public class ItemCell: UICollectionViewCell {
 
-    @IBOutlet weak var imageView: UIImageView!
-    @IBOutlet weak var mainLabel: UILabel!
-    @IBOutlet weak var subLabel: UILabel!
+    @IBOutlet public weak var imageView: UIImageView!
+    @IBOutlet public weak var mainLabel: UILabel!
+    @IBOutlet public weak var subLabel: UILabel!
 
-    override func awakeFromNib() {
+    public override func awakeFromNib() {
         super.awakeFromNib()
 
         imageView.layer.cornerRadius = 20
-        imageView.backgroundColor = UIColor.greenColor()
     }
 
 }

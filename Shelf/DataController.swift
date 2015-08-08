@@ -14,6 +14,8 @@ extension View.DataController {
         let bundle = NSBundle(forClass: ItemCell.self)
         let cell = UINib(nibName: "ItemCell", bundle: bundle).instantiateWithOwner(nil, options: nil).last! as! ItemCell
 
+        dataSource.shelfView(view!, configureItemCell: cell, indexPath: indexPath)
+
         let button = createButtonOrFindInView(cell.contentView)
         button.indexPath = indexPath
 
@@ -85,6 +87,9 @@ extension View.DataController: UITableViewDataSource {
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCellWithIdentifier("SectionCell", forIndexPath: indexPath) as! SectionCell
+        if let view = view, let dataSource = view.dataSource {
+            cell.titleLabel.text = dataSource.shelfView(view, titleForHeaderInSection: indexPath.row)
+        }
 
         cell.configure(createCells(indexPath.row))
 

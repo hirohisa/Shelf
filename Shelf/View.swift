@@ -15,6 +15,9 @@ public protocol ViewDelegate {
 public protocol ViewDataSource {
     func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int
+
+    func shelfView(shelfView: Shelf.View, configureItemCell cell: ItemCell, indexPath: NSIndexPath)
+    func shelfView(shelfView: Shelf.View, titleForHeaderInSection section: Int) -> String
 }
 
 public class View: UIView {
@@ -41,10 +44,6 @@ public class View: UIView {
     required public convenience init(coder aDecoder: NSCoder) {
         self.init(frame: CGRectZero)
     }
-
-    private var reuseClasses = [String: AnyClass]()
-    private var reuseNibs = [String: UINib]()
-    private var reuseCells = [String: [UICollectionReusableView]]()
 }
 
 // MARK: Public methods
@@ -57,33 +56,6 @@ extension View {
         tableView.reloadData()
     }
 
-    // Appearance
-
-    public func dequeueReusableCellWithReuseIdentifier(identifier: String, forIndexPath indexPath: NSIndexPath) -> AnyObject {
-        if let result = reuseCells[identifier]?.first {
-            return result
-        }
-
-        if let result: AnyClass = reuseClasses[identifier] {
-            let cellClass = result as! UICollectionViewCell.Type
-            let cell = cellClass()
-            return cell
-        }
-
-        fatalError("unable to dequeue a cell with identifier Cell - must register a nib or a class")
-    }
-
-    public func registerClass(cellClass: AnyClass?, forCellWithReuseIdentifier identifier: String) {
-        if let cellClass: AnyClass = cellClass {
-            reuseClasses[identifier] = cellClass
-        }
-    }
-
-    public func registerNib(nib: UINib?, forCellWithReuseIdentifier identifier: String) {
-        if let nib = nib {
-            reuseNibs[identifier] = nib
-        }
-    }
 }
 
 extension View {

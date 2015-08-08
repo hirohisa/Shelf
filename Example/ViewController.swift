@@ -37,7 +37,6 @@ class ViewController: UIViewController {
         let shelfView = Shelf.View(frame: frame)
         shelfView.dataSource = self
         shelfView.delegate = self
-        shelfView.registerClass(CollectionViewCell.self, forCellWithReuseIdentifier: "cell")
         view.addSubview(shelfView)
 
         self.shelfView = shelfView
@@ -62,15 +61,17 @@ extension ViewController: Shelf.ViewDataSource {
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return 10
     }
 
-    func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView? {
-        let label = UILabel()
-        label.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        label.text = "section: \(section)"
-        label.sizeToFit()
-        return label
+    func shelfView(shelfView: View, configureItemCell cell: ItemCell, indexPath: NSIndexPath) {
+        cell.imageView.backgroundColor = UIColor.greenColor()
+        cell.mainLabel.text = "main label"
+        cell.subLabel.text = "sub label"
+    }
+
+    func shelfView(shelfView: Shelf.View, titleForHeaderInSection section: Int) -> String {
+        return "Best New Apps"
     }
 
 }

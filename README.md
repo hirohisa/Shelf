@@ -47,7 +47,7 @@ extension View {
 
 ## Example
 
-![ ](Example/example.jpg)
+![ ](Example/example.png)
 
 ### ViewController
 
@@ -68,17 +68,21 @@ class ViewController: UIViewController {
 extension ViewController: Shelf.ViewDataSource {
 
     func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int {
-        return 2
+        return 5
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return 10
     }
 
-    func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
+    func shelfView(shelfView: View, configureItemCell cell: ItemCell, indexPath: NSIndexPath) {
+        cell.imageView.backgroundColor = UIColor.greenColor()
+        cell.mainLabel.text = "main label"
+        cell.subLabel.text = "sub label"
+    }
 
-        return cell
+    func shelfView(shelfView: Shelf.View, titleForHeaderInSection section: Int) -> String {
+        return "Best New Apps"
     }
 
 }
