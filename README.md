@@ -5,6 +5,8 @@ Shelf's base class is comprised of `UITableView`
 
 ## Features
 
+- [ ] Animation Header View.
+- [ ] Enabled to use Pickup Banner like AppStore App.
 
 ## Installation
 
@@ -26,13 +28,9 @@ Shelf.ViewDelegate and Shelf.ViewDataSource are like UITableViewDelegate and UIT
 
 ### Cell
 
-- Use `UICollectionViewCell`
+- Use `ItemCell: UICollectionViewCell`
 
-```
-shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-```
-
-### Layout
+Can't change to custom cell. If you can configure to cell, then you use data source's method `shelfView(shelfView: View, configureItemCell cell: ItemCell, indexPath: NSIndexPath)`.
 
 ### Reload
 
