@@ -15,8 +15,10 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiR-Ji-1sa">
-                        <rect key="frame" x="320" y="8" width="47" height="18"/>
-                        <state key="normal" title="Sell All">
+                        <rect key="frame" x="328" y="9" width="39" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="See All">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                             <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                         </state>
                     </button>
@@ -27,14 +29,14 @@
                         </constraints>
                     </scrollView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ha7-p7-48h">
-                        <rect key="frame" x="8" y="8" width="33" height="18"/>
+                        <rect key="frame" x="8" y="18" width="32.5" height="13"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
                 <constraints>
-                    <constraint firstItem="K7M-C6-fZl" firstAttribute="top" secondItem="IiR-Ji-1sa" secondAttribute="bottom" constant="15" id="90h-7a-oZ2"/>
+                    <constraint firstItem="K7M-C6-fZl" firstAttribute="top" secondItem="IiR-Ji-1sa" secondAttribute="bottom" constant="5" id="90h-7a-oZ2"/>
                     <constraint firstItem="ha7-p7-48h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="PWf-Sy-W6J"/>
                     <constraint firstItem="IiR-Ji-1sa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="QDV-Jt-xmy"/>
                     <constraint firstAttribute="bottomMargin" secondItem="K7M-C6-fZl" secondAttribute="bottom" id="ZgE-i6-fay"/>
@@ -42,11 +44,12 @@
                     <constraint firstAttribute="trailingMargin" secondItem="IiR-Ji-1sa" secondAttribute="trailing" id="eUR-NW-pyY"/>
                     <constraint firstItem="K7M-C6-fZl" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="fdq-dY-fGL"/>
                     <constraint firstItem="K7M-C6-fZl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="gyr-rb-paR"/>
-                    <constraint firstItem="ha7-p7-48h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="pvU-nz-ubu"/>
-                    <constraint firstItem="K7M-C6-fZl" firstAttribute="top" secondItem="ha7-p7-48h" secondAttribute="bottom" constant="15" id="wOK-3c-bps"/>
+                    <constraint firstItem="ha7-p7-48h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="pvU-nz-ubu"/>
+                    <constraint firstItem="K7M-C6-fZl" firstAttribute="top" secondItem="ha7-p7-48h" secondAttribute="bottom" constant="10" id="wOK-3c-bps"/>
                 </constraints>
                 <variation key="default">
                     <mask key="constraints">
+                        <exclude reference="QDV-Jt-xmy"/>
                         <exclude reference="c6D-qn-POK"/>
                     </mask>
                 </variation>
