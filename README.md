@@ -1,20 +1,14 @@
 # Shelf
 
-Shelf is a simple dynamic layout like bookshelf for iOS. It provides like UITableViewDelegate and UITableViewDatasource about Shelf's protocol.
+Shelf can display a view like AppStore for iOS. It provides like UITableViewDelegate and UITableViewDatasource about Shelf's protocol.
 Shelf's base class is comprised of `UITableView`
 
 ## Features
 
-- [x] Add base logic with DataSource and Delegate.
-- [x] Spread cells' layout vertically or horizontally.
-- [ ] Be enable to set padding for content.
-- [ ] Add content's alignment or create spacing property like `minimumInteritemSpacing`.
+- [ ] Animation Header View.
+- [ ] Enabled to use Pickup Banner like AppStore App.
 
 ## Installation
-
-There are two ways to use this in your project:
-
-- Copy `Shelf` into your project
 
 - Install with CocoaPods to write Podfile
 ```ruby
@@ -34,33 +28,9 @@ Shelf.ViewDelegate and Shelf.ViewDataSource are like UITableViewDelegate and UIT
 
 ### Cell
 
-- Use `UICollectionViewCell`
+- Use `ItemCell: UICollectionViewCell`
 
-```
-shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
-```
-
-### Layout
-
-- Set `ContentMode`, it is direction about spreading of cells every section
-
-  ```swift
-  enum ContentMode {
-      case Horizontal
-      case Vertical
-  }
-  ```
-
-- Set `SectionHeaderPosition`, section header stays anchored or not
-
-  ```swift
-  enum SectionHeaderPosition {
-      case Floating // header stays anchored
-      case Embedding // header scrolls
-  }
-
-  ```
-
+Can't change to custom cell. If you can configure to cell, then you use data source's method `shelfView(shelfView: View, configureItemCell cell: ItemCell, indexPath: NSIndexPath)`.
 
 ### Reload
 
@@ -75,7 +45,7 @@ extension View {
 
 ## Example
 
-![ ](Example/example.jpg)
+![ ](Example/example.png)
 
 ### ViewController
 
@@ -89,7 +59,6 @@ class ViewController: UIViewController {
         let shelfView = Shelf.View(frame: frame)
         shelfView.dataSource = self
         shelfView.delegate = self
-        shelfView.headerPosition = .Embedding
         shelfView.registerClass(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
     }
 }
@@ -97,38 +66,23 @@ class ViewController: UIViewController {
 extension ViewController: Shelf.ViewDataSource {
 
     func numberOfSectionsInShelfView(shelfView: Shelf.View) -> Int {
-        return 2
-    }
-
-    func shelfView(shelfView: Shelf.View, heightFotItemInSection section: Int) -> CGFloat {
-        return 100
-    }
-
-    func shelfView(shelfView: Shelf.View, widthFotItemAtIndexPath indexPath: NSIndexPath) -> CGFloat {
-        return 100
-    }
-
-    func shelfView(shelfView: Shelf.View, contentModeForSection section: Int) -> ContentMode {
-        return .Vertical
+        return 5
     }
 
     func shelfView(shelfView: Shelf.View, numberOfItemsInSection section: Int) -> Int {
-        return 20
+        return 10
     }
 
-    func shelfView(shelfView: Shelf.View, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let cell = shelfView.dequeueReusableCellWithReuseIdentifier("cell", forIndexPath: indexPath) as UICollectionViewCell
-
-        return cell
+    func shelfView(shelfView: View, configureItemCell cell: ItemCell, indexPath: NSIndexPath) {
+        cell.imageView.backgroundColor = UIColor.greenColor()
+        cell.mainLabel.text = "main label"
+        cell.subLabel.text = "sub label"
     }
 
-    func shelfView(shelfView: Shelf.View, heightForHeaderInSection section: Int) -> CGFloat {
-        return 50
+    func shelfView(shelfView: Shelf.View, titleForHeaderInSection section: Int) -> String {
+        return "Best New Apps"
     }
 
-    func shelfView(shelfView: Shelf.View, viewForHeaderInSection section: Int) -> UIView? {
-        return UILabel()
-    }
 }
 ```
 

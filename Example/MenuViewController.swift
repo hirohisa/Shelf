@@ -16,43 +16,21 @@ class MenuViewController: UITableViewController {
     }
 
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return 1
     }
 
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("cell", forIndexPath: indexPath) as! UITableViewCell
 
-        switch indexPath.row {
-        case 0:
-            cell.textLabel?.text = "ViewController Floating"
-        case 1:
-            cell.textLabel?.text = "ViewController Embedding"
-        case 2:
-            cell.textLabel?.text = "ShelfViewController"
-        default:
-            break
-        }
+        cell.textLabel?.text = "ViewController"
 
         return cell
     }
 
     override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
 
-        switch indexPath.row {
-        case 0:
-            let viewController = ViewController()
-            navigationController?.pushViewController(viewController, animated: true)
-        case 1:
-            let viewController = ViewController()
-            viewController.headerPosition = .Embedding
-            navigationController?.pushViewController(viewController, animated: true)
-        case 2:
-            let viewController = ShelfViewController()
-            navigationController?.pushViewController(viewController, animated: true)
-            break
-        default:
-            break
-        }
+        let viewController = ViewController()
+        navigationController?.pushViewController(viewController, animated: true)
     }
 
 }

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14E46" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="SectionCell" customModule="Shelf" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="200"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IiR-Ji-1sa">
+                        <rect key="frame" x="328" y="9" width="39" height="27"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                        <state key="normal" title="See All">
+                            <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                    <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K7M-C6-fZl">
+                        <rect key="frame" x="8" y="41" width="359" height="150"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="150" id="qD5-1V-QWL"/>
+                        </constraints>
+                    </scrollView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Title" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ha7-p7-48h">
+                        <rect key="frame" x="8" y="18" width="32.5" height="13"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="K7M-C6-fZl" firstAttribute="top" secondItem="IiR-Ji-1sa" secondAttribute="bottom" constant="5" id="90h-7a-oZ2"/>
+                    <constraint firstItem="ha7-p7-48h" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="PWf-Sy-W6J"/>
+                    <constraint firstItem="IiR-Ji-1sa" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="QDV-Jt-xmy"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="K7M-C6-fZl" secondAttribute="bottom" id="ZgE-i6-fay"/>
+                    <constraint firstItem="IiR-Ji-1sa" firstAttribute="leading" secondItem="ha7-p7-48h" secondAttribute="trailing" id="c6D-qn-POK"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="IiR-Ji-1sa" secondAttribute="trailing" id="eUR-NW-pyY"/>
+                    <constraint firstItem="K7M-C6-fZl" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="fdq-dY-fGL"/>
+                    <constraint firstItem="K7M-C6-fZl" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leadingMargin" id="gyr-rb-paR"/>
+                    <constraint firstItem="ha7-p7-48h" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" constant="10" id="pvU-nz-ubu"/>
+                    <constraint firstItem="K7M-C6-fZl" firstAttribute="top" secondItem="ha7-p7-48h" secondAttribute="bottom" constant="10" id="wOK-3c-bps"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="QDV-Jt-xmy"/>
+                        <exclude reference="c6D-qn-POK"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="moreButton" destination="IiR-Ji-1sa" id="pgj-wO-p2w"/>
+                <outlet property="scrollView" destination="K7M-C6-fZl" id="bKR-cH-Vg1"/>
+                <outlet property="titleLabel" destination="ha7-p7-48h" id="FUM-Yd-2o1"/>
+            </connections>
+            <point key="canvasLocation" x="240.5" y="205"/>
+        </tableViewCell>
+    </objects>
+</document>
