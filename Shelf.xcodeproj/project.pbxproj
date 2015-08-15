@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		65FA95961B78CC51000E4193 /* HeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65FA95951B78CC51000E4193 /* HeaderView.xib */; };
+		65FA95981B78CC5E000E4193 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 65FA95971B78CC5E000E4193 /* HeaderView.swift */; };
 		A1C2E8E61AD0572700ABE52B /* DataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1C2E8E51AD0572700ABE52B /* DataController.swift */; };
 		A1E84F201B752C1000A01A46 /* SectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E84F1E1B752C1000A01A46 /* SectionCell.swift */; };
 		A1E84F211B752C1000A01A46 /* SectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A1E84F1F1B752C1000A01A46 /* SectionCell.xib */; };
@@ -29,6 +31,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		65FA95951B78CC51000E4193 /* HeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = HeaderView.xib; sourceTree = "<group>"; };
+		65FA95971B78CC5E000E4193 /* HeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		A1C2E8E51AD0572700ABE52B /* DataController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataController.swift; sourceTree = "<group>"; };
 		A1E84F1E1B752C1000A01A46 /* SectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionCell.swift; sourceTree = "<group>"; };
 		A1E84F1F1B752C1000A01A46 /* SectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SectionCell.xib; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 				A1ECEE2E1AB364E4001155F1 /* Shelf.h */,
 				A1ECEE751AB373D1001155F1 /* View.swift */,
 				A1C2E8E51AD0572700ABE52B /* DataController.swift */,
+				65FA95971B78CC5E000E4193 /* HeaderView.swift */,
+				65FA95951B78CC51000E4193 /* HeaderView.xib */,
 				A1E84F221B75323400A01A46 /* ItemCell.swift */,
 				A1E84F231B75323400A01A46 /* ItemCell.xib */,
 				A1E84F1E1B752C1000A01A46 /* SectionCell.swift */,
@@ -210,6 +216,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65FA95961B78CC51000E4193 /* HeaderView.xib in Resources */,
 				A1E84F251B75323400A01A46 /* ItemCell.xib in Resources */,
 				A1E84F211B752C1000A01A46 /* SectionCell.xib in Resources */,
 			);
@@ -229,6 +236,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				65FA95981B78CC5E000E4193 /* HeaderView.swift in Sources */,
 				A1E84F241B75323400A01A46 /* ItemCell.swift in Sources */,
 				A1C2E8E61AD0572700ABE52B /* DataController.swift in Sources */,
 				A1E84F201B752C1000A01A46 /* SectionCell.swift in Sources */,
