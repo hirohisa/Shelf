@@ -35,8 +35,11 @@ public class View: UIView {
     let dataController = DataController()
 
     let tableView: TableView
+    let headerView: HeaderView!
     required override public init(frame: CGRect) {
         tableView = TableView(frame: frame, style: .Plain)
+        let bundle = NSBundle(forClass: View.self)
+        headerView = UINib(nibName: "HeaderView", bundle: bundle).instantiateWithOwner(nil, options: nil)[0] as! HeaderView
         super.init(frame: frame)
         configure()
     }
@@ -64,8 +67,11 @@ extension View {
         addSubview(tableView)
 
         dataController.view = self
-        //tableView.delegate = dataController
+        tableView.delegate = self
         tableView.dataSource = dataController
+
+        tableView.addSubview(headerView)
+        tableView.tableHeaderView = UIView(frame: headerView.frame)
     }
 
     func indexPathsInSections(sections: [Int]) -> [NSIndexPath] {
@@ -82,6 +88,21 @@ extension View {
         }
 
         return indexPaths
+    }
+}
+
+extension View: UITableViewDelegate {
+
+    public func scrollViewDidScroll(scrollView: UIScrollView) {
+
+        var origin = CGPointZero
+        if scrollView.contentOffset.y + scrollView.contentInset.top < 0 {
+            let diff = scrollView.contentOffset.y + scrollView.contentInset.top
+            origin = CGPoint(x: 0, y: diff)
+        }
+        var frame = headerView.frame
+        frame.origin = origin
+        headerView.frame = frame
     }
 }
 
