@@ -12,28 +12,18 @@ class SectionCell: UITableViewCell {
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var moreButton: UIButton!
-    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var collectionView: UICollectionView!
 
     override func awakeFromNib() {
         super.awakeFromNib()
 
-        scrollView.clipsToBounds = false
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.showsVerticalScrollIndicator = false
-    }
+        collectionView.clipsToBounds = false
+        collectionView.backgroundColor = UIColor.whiteColor()
+        collectionView.showsHorizontalScrollIndicator = false
+        collectionView.showsVerticalScrollIndicator = false
 
-    func configure(cells: [ItemCell]) {
-
-        for cell in cells {
-            scrollView.addSubview(cell)
-        }
-
-        var width = contentView.frame.width
-        if let lastCell = cells.last where lastCell.frame.maxX > width {
-            width = lastCell.frame.maxX
-        }
-
-        scrollView.contentSize = CGSize(width: width, height: scrollView.frame.height)
+        let bundle = NSBundle(forClass: ItemCell.self)
+        collectionView.registerNib(UINib(nibName: "ItemCell", bundle: bundle), forCellWithReuseIdentifier: "ItemCell")
     }
 
 }

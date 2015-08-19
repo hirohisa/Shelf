@@ -8,66 +8,33 @@
 
 import UIKit
 
-extension View.DataController {
+extension View.DataController: UICollectionViewDataSource, UICollectionViewDelegate {
 
-    func createCell(fromDataSource dataSource: ViewDataSource, indexPath: NSIndexPath) -> ItemCell {
-        let bundle = NSBundle(forClass: ItemCell.self)
-        let cell = UINib(nibName: "ItemCell", bundle: bundle).instantiateWithOwner(nil, options: nil).last! as! ItemCell
+    func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if let view = view, let dataSource = view.dataSource {
+            return dataSource.shelfView(view, numberOfItemsInSection: collectionView.tag)
+        }
+        return 1
+    }
 
-        dataSource.shelfView(view!, configureItemCell: cell, indexPath: indexPath)
+    func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ItemCell", forIndexPath: indexPath) as! ItemCell
 
-        let button = createButtonOrFindInView(cell.contentView)
-        button.indexPath = indexPath
+        if let view = view, let dataSource = view.dataSource {
+            dataSource.shelfView(view, configureItemCell: cell, indexPath: indexPath)
+        }
 
         return cell
     }
 
-    func createButtonOrFindInView(view: UIView) -> Button {
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
-        for subview in view.subviews {
-            if let subview = subview as? Button {
-                return subview
-            }
+        if let view = view, let delegate = view.delegate {
+            NSIndexPath(forItem: indexPath.item, inSection: collectionView.tag)
+            delegate.shelfView(view, didSelectItemAtIndexPath: indexPath)
         }
-
-        let button = Button(frame: view.bounds)
-        button.autoresizingMask = .FlexibleWidth | .FlexibleHeight
-        button.addTarget(self, action: "didSelectCell:", forControlEvents: .TouchUpInside)
-        view.addSubview(button)
-        view.sendSubviewToBack(button)
-        return button
     }
 
-    func createCells(section: Int) -> [ItemCell] {
-
-        var cells = [ItemCell]()
-        if let shelfView = view, let dataSource = shelfView.dataSource {
-
-            let width: CGFloat = 100
-            let height: CGFloat = 150
-            var x: CGFloat = 0
-            var y: CGFloat = 0
-            for index in 0 ..< dataSource.shelfView(shelfView, numberOfItemsInSection: section) {
-                let indexPath = NSIndexPath(forItem: index, inSection: section)
-                let cell = createCell(fromDataSource: dataSource, indexPath: indexPath)
-                cell.frame = CGRect(x: x, y: y, width: width, height: height)
-                x = cell.frame.maxX + 15
-
-                cells.append(cell)
-            }
-        }
-
-        return cells
-    }
-
-    func didSelectCell(sender: Button) {
-        let cell = sender.superview?.superview
-
-        if let cell = cell as? UICollectionViewCell {
-            cell.selected = !cell.selected
-        }
-        view?.delegate?.shelfView(view!, didSelectItemAtIndexPath: sender.indexPath!)
-    }
 }
 
 extension View.DataController: UITableViewDataSource {
@@ -90,8 +57,9 @@ extension View.DataController: UITableViewDataSource {
         if let view = view, let dataSource = view.dataSource {
             cell.titleLabel.text = dataSource.shelfView(view, titleForHeaderInSection: indexPath.row)
         }
-
-        cell.configure(createCells(indexPath.row))
+        cell.collectionView.delegate = self
+        cell.collectionView.dataSource = self
+        cell.collectionView.tag = indexPath.row // TODO: replace tag to other variable
 
         return cell
     }
