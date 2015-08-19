@@ -11,7 +11,10 @@ import UIKit
 extension View.DataController: UICollectionViewDataSource, UICollectionViewDelegate {
 
     func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 3
+        if let view = view, let dataSource = view.dataSource {
+            return dataSource.shelfView(view, numberOfItemsInSection: collectionView.tag)
+        }
+        return 1
     }
 
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
@@ -22,6 +25,14 @@ extension View.DataController: UICollectionViewDataSource, UICollectionViewDeleg
         }
 
         return cell
+    }
+
+    func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+        if let view = view, let delegate = view.delegate {
+            NSIndexPath(forItem: indexPath.item, inSection: collectionView.tag)
+            delegate.shelfView(view, didSelectItemAtIndexPath: indexPath)
+        }
     }
 
 }
@@ -48,6 +59,7 @@ extension View.DataController: UITableViewDataSource {
         }
         cell.collectionView.delegate = self
         cell.collectionView.dataSource = self
+        cell.collectionView.tag = indexPath.row // TODO: replace tag to other variable
 
         return cell
     }
