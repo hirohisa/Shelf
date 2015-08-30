@@ -21,6 +21,7 @@ extension View.DataController: UICollectionViewDataSource, UICollectionViewDeleg
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("ItemCell", forIndexPath: indexPath) as! ItemCell
 
         if let view = view, let dataSource = view.dataSource {
+            let indexPath = NSIndexPath(forItem: indexPath.item, inSection: collectionView.tag)
             dataSource.shelfView(view, configureItemCell: cell, indexPath: indexPath)
         }
 
@@ -30,7 +31,7 @@ extension View.DataController: UICollectionViewDataSource, UICollectionViewDeleg
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
 
         if let view = view, let delegate = view.delegate {
-            NSIndexPath(forItem: indexPath.item, inSection: collectionView.tag)
+            let indexPath = NSIndexPath(forItem: indexPath.item, inSection: collectionView.tag)
             delegate.shelfView(view, didSelectItemAtIndexPath: indexPath)
         }
     }
