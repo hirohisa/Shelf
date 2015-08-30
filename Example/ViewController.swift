@@ -67,7 +67,7 @@ extension ViewController: Shelf.ViewDataSource {
     func shelfView(shelfView: View, configureItemCell cell: ItemCell, indexPath: NSIndexPath) {
         cell.imageView.backgroundColor = UIColor.greenColor()
         cell.mainLabel.text = "main label"
-        cell.subLabel.text = "sub label"
+        cell.subLabel.text = "indexPath [\(indexPath.section), \(indexPath.row)]"
     }
 
     func shelfView(shelfView: Shelf.View, titleForHeaderInSection section: Int) -> String {
