@@ -34,36 +34,41 @@ public class View: UIView {
     }
     let dataController = DataController()
 
-    let tableView: TableView
-    let headerView: HeaderView!
-    required override public init(frame: CGRect) {
-        tableView = TableView(frame: frame, style: .Plain)
-        let bundle = NSBundle(forClass: View.self)
-        headerView = UINib(nibName: "HeaderView", bundle: bundle).instantiateWithOwner(nil, options: nil)[0] as! HeaderView
-        super.init(frame: frame)
+    let tableView = UITableView()
+    let headerView: HeaderView = {
+        return UINib(nibName: "HeaderView", bundle: NSBundle(forClass: View.self)).instantiateWithOwner(nil, options: nil)[0] as! HeaderView
+    }()
+
+    required public init(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         configure()
     }
 
-    required public convenience init(coder aDecoder: NSCoder) {
-        self.init(frame: CGRectZero)
+    public override init(frame: CGRect) {
+        super.init(frame: frame)
+        configure()
     }
-}
-
-// MARK: Public methods
-
-extension View {
-
-    // Data
 
     public func reloadData() {
         tableView.reloadData()
     }
 
+    public override var frame: CGRect {
+        didSet {
+            tableView.frame = bounds
+        }
+    }
 }
 
 extension View {
 
     func configure() {
+        let bundle = NSBundle(forClass: View.self)
+
+        tableView.allowsSelection = false
+        tableView.estimatedRowHeight = 200
+        tableView.rowHeight = UITableViewAutomaticDimension
+        tableView.registerNib(UINib(nibName: "SectionCell", bundle: bundle), forCellReuseIdentifier: "SectionCell")
         addSubview(tableView)
 
         dataController.view = self
@@ -72,22 +77,6 @@ extension View {
 
         tableView.addSubview(headerView)
         tableView.tableHeaderView = UIView(frame: headerView.frame)
-    }
-
-    func indexPathsInSections(sections: [Int]) -> [NSIndexPath] {
-
-        var indexPaths = [NSIndexPath]()
-        for section in sections {
-
-            var indexPath: NSIndexPath?
-            indexPath = NSIndexPath(forRow: 0, inSection: section)
-
-            if let indexPath = indexPath {
-                indexPaths.append(indexPath)
-            }
-        }
-
-        return indexPaths
     }
 }
 
@@ -104,31 +93,4 @@ extension View: UITableViewDelegate {
         frame.origin = origin
         headerView.frame = frame
     }
-}
-
-class TableView: UITableView {
-
-    required override init(frame: CGRect, style: UITableViewStyle) {
-        super.init(frame: frame, style: style)
-        configure()
-    }
-
-    required convenience init(coder aDecoder: NSCoder) {
-        self.init(frame: CGRectZero, style: .Plain)
-        configure()
-    }
-
-    func configure() {
-        allowsSelection = false
-        estimatedRowHeight = 200
-        rowHeight = UITableViewAutomaticDimension
-
-        let bundle = NSBundle(forClass: SectionCell.self)
-        registerNib(UINib(nibName: "SectionCell", bundle: bundle), forCellReuseIdentifier: "SectionCell")
-    }
-}
-
-
-class Button: UIButton {
-    var indexPath: NSIndexPath?
 }
