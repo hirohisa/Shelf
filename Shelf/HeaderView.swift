@@ -10,9 +10,27 @@ import UIKit
 
 class HeaderView: UIView {
 
+    @IBOutlet weak var scrollView: UIScrollView!
+
+    var views: [UIView] = [] {
+        didSet {
+            updateData()
+        }
+    }
+
     override func awakeFromNib() {
         super.awakeFromNib()
-
-        backgroundColor = UIColor.redColor()
+        scrollView.backgroundColor = UIColor.redColor()
     }
+
+    func updateData() {
+        for subview in scrollView.subviews {
+            subview.removeFromSuperview()
+        }
+
+        for view in views {
+            //scrollView.addSubview(view)
+        }
+    }
+
 }
