@@ -12,6 +12,9 @@
             <subviews>
                 <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sTA-jH-aoj">
                     <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="faz-LB-VFI"/>
+                    </connections>
                 </scrollView>
             </subviews>
             <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

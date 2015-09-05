@@ -11,10 +11,15 @@ import UIKit
 class HeaderView: UIView {
 
     @IBOutlet weak var scrollView: UIScrollView!
+    var index = 0 {
+        didSet {
+            updateData()
+        }
+    }
 
     var views: [UIView] = [] {
         didSet {
-            updateData()
+            index = 0
         }
     }
 
@@ -24,13 +29,17 @@ class HeaderView: UIView {
     }
 
     func updateData() {
-        for subview in scrollView.subviews {
-            subview.removeFromSuperview()
-        }
-
-        for view in views {
-            //scrollView.addSubview(view)
-        }
+        // if unnecessary views exist, remove them.
+        // necessary views exist, change their frame.
+        // necessary views dont exist, add subview with frame
     }
 
+}
+
+extension HeaderView: UIScrollViewDelegate {
+
+    func scrollViewDidEndDecelerating(scrollView: UIScrollView) {
+        // TODO: Change index by current view
+        // index = next index
+    }
 }
