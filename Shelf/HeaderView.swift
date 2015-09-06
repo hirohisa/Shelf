@@ -8,6 +8,12 @@
 
 import UIKit
 
+enum Position {
+    case Left
+    case Center
+    case Right
+}
+
 class HeaderView: UIView {
 
     @IBOutlet weak var scrollView: UIScrollView!
@@ -34,6 +40,19 @@ class HeaderView: UIView {
         // necessary views dont exist, add subview with frame
     }
 
+    func frameForPosition(position: Position) -> CGRect {
+        var frame = scrollView.bounds
+        switch position {
+        case .Left:
+            frame.origin.x = frame.origin.x - frame.width
+        case .Right:
+            frame.origin.x = frame.origin.x + frame.width
+        default:
+            break
+        }
+
+        return frame
+    }
 }
 
 extension HeaderView: UIScrollViewDelegate {
