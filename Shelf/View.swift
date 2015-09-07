@@ -18,6 +18,7 @@ public protocol ViewDataSource {
 
     func shelfView(shelfView: Shelf.View, configureItemCell cell: ItemCell, indexPath: NSIndexPath)
     func shelfView(shelfView: Shelf.View, titleForHeaderInSection section: Int) -> String
+    func headerViewsInShelfView(shelfView: Shelf.View) -> [UIView]
 }
 
 public class View: UIView {
