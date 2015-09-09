@@ -74,5 +74,24 @@ extension ViewController: Shelf.ViewDataSource {
         return "Best New Apps"
     }
 
+    func headerViewsInShelfView(shelfView: View) -> [UIView] {
+        let colors = [
+            UIColor.redColor(),
+            UIColor.blueColor(),
+            UIColor.greenColor(),
+            UIColor.yellowColor(),
+            UIColor.blackColor(),
+            UIColor.purpleColor(),
+            UIColor.orangeColor(),
+            UIColor.grayColor(),
+        ]
+
+        return colors.map { color -> UIView in
+            let view = UIView()
+            view.backgroundColor = color
+            return view
+        }
+    }
+
 }
 
